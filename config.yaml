@@ -1,0 +1,350 @@
+name: Deploy Hugo site to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches:
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+baseURL: ""
+languageCode: "en-us"
+title: "Lisa's Profile"
+theme: hugo-profile
+
+outputs:
+  home:
+    - "HTML"
+    - "RSS"
+    - "JSON"
+  page:
+    - "HTML"
+    - "RSS"
+
+Paginate: 3
+enableRobotsTXT: true
+# disqusShortname: your-disqus-shortname
+# googleAnalytics: G-MEASUREMENT_ID
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+    #Dropdown menu
+    # - identifier: dropdown
+    #   title: Example dropdown menu
+    #   name: Dropdown
+    #   weight: 3
+    # - identifier: dropdown1
+    #   title: example dropdown 1
+    #   name: example 1
+    #   url: /#
+    #   parent: dropdown
+    #   weight: 1
+    # - identifier: dropdown2
+    #   title: example dropdown 2
+    #   name: example 2
+    #   url: /#
+    #   parent: dropdown
+    #   weight: 2
+
+params:
+  title: "Lisa's Profile"
+  description: Text about my cool site
+  # staticPath: ""  # The path to serve the static files from
+  favicon: "/fav.png"
+
+  # Whether to serve bootstrap css and js files from CDN or not. Can be set to true, "css" or "js" to choose between
+  # serving both, only the css, or only the js files through the CDN. Any other value will make so that CDN is not used.
+  # Note the lack of "" in true, it should be of boolean type.
+  useBootstrapCDN: false
+
+  # If you want to load dynamically responsive images from Cloudinary
+  # This requires your images to be uploaded + hosted on Cloudinary
+  # Uncomment and change YOUR_CLOUD_NAME to the Cloud Name in your Cloudinary console
+  # cloudinary_cloud_name: "YOUR_CLOUD_NAME"
+  
+  # Whether to add mathjax support on all pages. Alternatively, you can opt-in per page by adding `mathjax: true` in the frontmatter.
+  mathjax: false
+
+  # Whether the fade animations on the home page will be enabled
+  animate: true
+
+  theme:
+    # disableThemeToggle: true
+    # defaultTheme: "light" # dark
+
+  font:
+    fontSize: 1rem # default: 1rem
+    fontWeight: 400 # default: 400
+    lineHeight: 1.5 # default: 1.5
+    textAlign: left # default: left
+
+  # color preference
+  # color:
+  #   textColor:
+  #   secondaryTextColor:
+  #   backgroundColor:
+  #   secondaryBackgroundColor:
+  #   primaryColor:
+  #   secondaryColor:
+
+  #   darkmode:
+  #     textColor:
+  #     secondaryTextColor:
+  #     backgroundColor:
+  #     secondaryBackgroundColor:
+  #     primaryColor:
+  #     secondaryColor:
+
+  # If you want to customize the menu, you can change it here
+  navbar:
+    align: ms-auto # Left: ms-auto | center: mx-auto | right: me-auto | Default: ms-auto
+    # brandLogo: "/logo.png" # Logo for the brand | default is the favicon variable
+    # showBrandLogo: false # Show brand logo in nav bar | default is true
+    brandName: "Home" # Brand name for the brand | default is the title variable
+    disableSearch: false
+    # searchPlaceholder: "Search"
+    stickyNavBar:
+      enable : true
+      showOnScrollUp : true
+    menus:
+      disableAbout: false
+      disableExperience: false
+      disableEducation: false
+      disableProjects: false
+      disableAchievements: false
+      disableContact: false
+
+  # Hero
+  hero:
+    enable: true
+    intro: "Hi, my name is"
+    title: "Lisa Lyu"
+    subtitle: "Welcome to my personal website!"
+    content: "I am currently a graduate student at Cornell University, majoring in Operations Research and Information Engineering. 
+              My concentration is Data Analytics. I am actively seeking jobs related to data analysis and data science!"
+    image: /img_4.JPG
+    bottomImage:
+      enable: true
+    # roundImage: true # Make hero image circular | default false
+
+      newPage: false
+
+  # About
+  about:
+    enable: true
+    title: "About Me"
+    image: "/img_5.JPEG"
+    content: |-
+      I am currently a graduate student at Cornell University, majoring in Operations Research and Information Engineering.
+      I earned my Bachelor degree at University of Washington previously. I am passionate about data analysis since I believe
+      a good understanding of data would provude a strong foundation for decision-making. Currently, we are working on the Cornell
+      Capstone project, building models to help the company predict the shipping quantity and improve the forecasting accuracy. 
+    
+    skills:
+      enable: true
+      title: "Here are a few technologies I've been working with recently:"
+      items:
+        - "SQL"
+        - "Python"
+        - "MATLAB"
+        - "R"
+        - "Microsoft Excel"
+        - "Tableau"
+
+  # Experience
+  experience:
+    enable: true
+    # title: "Custom Name"
+    items:
+      - job: "Data Analyst Intern"
+        company: "Publicis Groupe"
+        companyUrl: "https://example.com"
+        date: "Apr 2023 - May 2023"
+        info:
+          enable: true
+          content: I worked as a data analyst intern in the product team.
+        content: |
+          I worked as a data analyst intern in Publicis Groupe in Beijing, China. My responsibilities and achievements were:
+
+          - Produced and presented monthly performance evaluation reports utilizing SQL and Excel to evaluate employee performance and identify employee development opportunities in various areas.
+          - Built ETL from multiple queries by extracting essential columns, enhancing data processing efficiency, reducing the total runtime
+            by 20%, and significantly improving the execution speed. 
+          - Created data migration to Excel and assessed employee performance, providing enhanced insights for employee development.
+          - Designed interactive dashboards by Tableau to showcase employee performance and presented them to stakeholders, leading
+            data driven initiatives in partnership with cross-functional teams to achieve a 10% improvement in operational efficiency for
+            more than 10 clients, resulting in improved client satisfaction and process optimization.
+
+      - job: "Data Analayst, Cornell Capstone Cooperation with Netgear"
+        company: "Netgear"
+        date: "Dec 2023 - present"
+        info:
+          enable: false
+        content: |
+          I am currently working with Cornell Team to help Netgear improve the forecasting accuracy on shipping quantity.
+
+          - Analyzed 160,000 historical selling and shipping data in the past 3 years using Python to discover valuable business insights,
+            involving exploratory data analysis, Pareto analysis, and statistical analysis to identify key patterns, trends, and anomalies.
+          - Utilized Python for outlier filtration via the IQR technique, and crafted a polynomial regression model coupled with time series
+            analysis, elevating forecasting accuracy from 60% to 85%, thus refining decision-making processes.
+          - Presented bi-weekly reports to managers and project sponsors to ensure alignment with strategic goals and facilitate informed
+            decision-making.
+
+      # - job: "Undergraduate Math Tutor"
+      #   company: "University of Washington, Math Study Center"
+      #   date: "Sep 2022 - Mar 2023"
+      #   info:
+      #     enable: false
+      #   content: |
+      #     I worked as a math tutor at MSC in UW, answering questions for Calculus series courses (MATH 120, MATH 124, MATH 125, MATH 126)
+      #     - Tutored more than 20 students everyday, answering questions from students and providing thoughts or hints on each question.
+     
+      
+
+  # Education
+  education:
+    enable: true
+    # title: "Custom Name"
+    index: false
+    items:
+      - title: "Master of Engineering in Operations Research"
+        school:
+          name: "Cornell University"
+        date: "2023 - 2024"
+        GPA: "4.0"
+        content: |-
+          Core Courses
+            - Machine Learning, Big Messy Data, Big Data Technology, Optimization
+            
+      - title: "Bachelor of Science in Applied Mathematics, Bachelor of Arts in Mathematics"
+        school:
+          name: "University of Washington"
+        date: "2019 - 2023"
+        GPA: "3.93 out of 4.0"
+        content: |-
+          Core Courses
+            - Computation Methods of Data Analysis, Computational (Mathematical) Modeling in Biological Systems
+          
+          Extracurricular Activities
+            - Worked as a math tutor at Math Study Center, focusing on calculus
+            
+      - title: "High School"
+        school:
+          name: "Beijing No.35 High School International Department"
+        date: "2016 - 2019"
+
+
+  # projects
+  projects:
+    enable: true
+    # title: "Custom Name"
+    items:
+      - title: Breast Cancer Detection 
+        content: A robust data science project focused on enhancing breast cancer detection through three Convolutional Neural Networks models by modifying the training size of data.
+                Considering the cost of sampling and lack of sample, we also explored the data augmentation technique.
+        image: /img_1.jpeg
+        featured:
+          name: Publication
+          link: https://ieeexplore.ieee.org/abstract/document/9973891
+        badges:
+          - "Python"
+          - "Machine Learning"
+        # links:
+        #   - icon: fa fa-envelope
+        #     url: mailto:?subject=Hugo%20Profile%20Template&body=Check%20it%20out:%20https%3a%2f%2fhugo-profile.netlify.app%2fblog%2fmarkdown-syntax%2f
+        #   - icon: fab fa-github
+        #     url: https://github.com/gurusabarish/hugo-profile
+        #   - icon: fab fa-twitter
+        #     url: https://twitter.com/intent/tweet?text=Check+it+out:&url=https%3A%2F%2Fgithub.com%2Fgurusabarish%2Fhugo-profile
+
+      - title: NYC Bike Sharing Analysis
+        content: A project to understand how to allcoate bikes in different bike locations in NYC. Analyzed
+                3-million bike data by cleaning and merging. Built a model to minimized the unsatisfied customer, and provided insight on decision-making for Bike Angel bonus system.
+        image: /img_2.jpeg
+        # featured:
+        #   name: Demo
+        #   link: https://django-converter.herokuapp.com
+        badges:
+          - "Python"
+          - "Data Visulization"
+        # links:
+        #   - icon: fab fa-github
+        #     url: https://github.com/gurusabarish/converter
+
+      - title: Crime Rates in the United States
+        content: A project to gain insights of crime situation and distribution in the United States. We analyzed historical data for each state, building various charts to provide a clear interactive interface for people.
+        image: /img_3.png
+        # featured:
+        #   name: Demo V2
+        #   link: https://hugo-profile-2.netlify.app
+        badges:
+          - "R"
+          - "Data Visualization"
+        # links:
+        #   - icon: fab fa-github
+        #     url: https://github.com/gurusabarish/HugoProfileV2
+
+  #Contact
+  contact:
+    enable: true
+    # title: "Custom Name"
+    content: Below is my email, feel free to contact me!
+    btnName: Mail me
+    btnLink: mailto:zl879@cornell.edu
+    # formspree:
+    #   enable: true # `contact.email` value will be ignored
+    #   formId: abcdefgh # Take it from your form's endpoint, like 'https://formspree.io/f/abcdefgh'
+    #   emailCaption: "Enter your email address"
+    #   messageCaption: "Enter your message here"
+
+  footer:
+    # recentPosts:
+    #   path: "blogs"
+    #   count: 3
+    #   title: Recent Posts
+    #   enable: true
+    #   disableFeaturedImage: false
+    socialNetworks:
+      # github: https://github.com
+      linkedin: https://www.linkedin.com/in/zijia-lisa-lyu/
+      # twitter: https://twitter.com
+      # instagram: https://instagram.com
+      # facebook: https://facebook.com
+
+  # List pages like blogs and posts
+  listPages:
+    disableFeaturedImage: false
+
+  # Single pages like blog and post
+  singlePages:
+    readTime:
+      enable: true
+      content: "min read"
+    scrollprogress:
+      enable: true
+
+  # For translations
+  terms:
+    read: "Read"
+    toc: "Table Of Contents"
+    copyright: "All rights reserved"
+    pageNotFound: "Page not found"
+    emailText: "Check out this site"
+
+  datesFormat:
+    article: "Jan 2, 2006"
+    articleList: "Jan 2, 2006"
+    articleRecent: "Jan 2, 2006"
+
+  #customScripts: -| # You can add custom scripts which will be added before </body> tag
+  #  <script type="text/javascript"><!-- any script here --></script>
